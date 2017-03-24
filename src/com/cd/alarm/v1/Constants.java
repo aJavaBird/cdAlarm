@@ -4,28 +4,28 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 public class Constants {
-	/**åç§°*/
-	public static String TITLE = "alarm v1.0";//æ¸…æ²³é˜³å…‰é—¹é’Ÿ v1.0
-	/**é—¹é’Ÿæ˜¯å¦å¯åŠ¨*/
+	/**Ãû³Æ*/
+	public static String TITLE = "alarm v1.0";//ÇåºÓÑô¹âÄÖÖÓ v1.0
+	/**ÄÖÖÓÊÇ·ñÆô¶¯*/
 	public static boolean ALARM_OK = false;
-	/**æ’­æ”¾éŸ³ä¹æ–‡ä»¶*/
+	/**²¥·ÅÒôÀÖÎÄ¼ş*/
 	public static String FILE_PATH = "F:/music/trippygaia1.mid";
-	/**å“é“ƒæ—¶é—´ï¼Œæ ¼å¼ï¼šHH:mm:ss,é»˜è®¤8ç‚¹*/
+	/**ÏìÁåÊ±¼ä£¬¸ñÊ½£ºHH:mm:ss,Ä¬ÈÏ8µã*/
 	public static String ALARM_TIME = "08:00:00";
-	/**å“é“ƒæ—¶ï¼Œä¸ºALARM_TIMEçš„åˆ†è§£*/
+	/**ÏìÁåÊ±£¬ÎªALARM_TIMEµÄ·Ö½â*/
 	public static int ALARM_HOUR = 8;
-	/**å“é“ƒåˆ†ï¼Œä¸ºALARM_TIMEçš„åˆ†è§£*/
+	/**ÏìÁå·Ö£¬ÎªALARM_TIMEµÄ·Ö½â*/
 	public static int ALARM_MIN = 0;
-	/**æ¯éš”å¤šä¹…å“ä¸€æ¬¡,å•ä½åˆ†é’Ÿ*/
+	/**Ã¿¸ô¶à¾ÃÏìÒ»´Î,µ¥Î»·ÖÖÓ*/
 	public static int EVERY_OTHER_TIME = 1;
-	/**æ¯æ¬¡å“é“ƒç§’æ•°*/
+	/**Ã¿´ÎÏìÁåÃëÊı*/
 	public static int ALARM_SECONDS = 58;
-	/**å“é“ƒæ¬¡æ•°*/
+	/**ÏìÁå´ÎÊı*/
 	public static int ALARM_TIMES = 2;	
-	/**é—¹é’Ÿæœ€å°å®½*/
+	/**ÄÖÖÓ×îĞ¡¿í*/
 	public static int ALARM_WIDTH = 350;
-	/**é—¹é’Ÿæœ€å°é«˜*/
+	/**ÄÖÖÓ×îĞ¡¸ß*/
 	public static int ALARM_HEIGHT = 250;
-	/**é—¹é’Ÿæ˜¯å¦ä¼šå†æ¬¡å“*/
+	/**ÄÖÖÓÊÇ·ñ»áÔÙ´ÎÏì*/
 	public static boolean ALARM_AGAIN = true;
 }
