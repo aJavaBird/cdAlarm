@@ -4,17 +4,18 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
 public class AlarmTimer {
 	private Timer timer = null;
+	InputStream in = null;
 	private AudioStream as = null;
 	private boolean isPlay = true;
 	
@@ -24,17 +25,8 @@ public class AlarmTimer {
 		}
 		if(min>=0 && min<60){
 			Constants.ALARM_MIN = min;
-		}		
-		InputStream in = null;
-		try {
-			in = new FileInputStream (Constants.FILE_PATH);// ´ò ¿ª Ò» ¸ö Éù Òô ÎÄ ¼ş Á÷ ×÷ Îª Êä Èë
-			as = new AudioStream (in);// ÓÃ Êä Èë Á÷ ´´ ½¨ Ò» ¸öAudioStream ¶Ô Ïó 
-			timer = new Timer();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}		
+		}				
+		timer = new Timer();	
 	}
 	
 	public void startAlarm(){
@@ -55,21 +47,27 @@ public class AlarmTimer {
 	
 	public void playMusic(){
 		isPlay = true;
-		if(as != null){
-			AudioPlayer.player.start (as); //¡°player¡± ÊÇAudioPlayer ÖĞ Ò» ¾² Ì¬ ³É Ô± ÓÃ ÓÚ ¿Ø ÖÆ ²¥ ·Å 
+		try {			
+			in = new FileInputStream (Constants.FILE_PATH);// æ‰“ å¼€ ä¸€ ä¸ª å£° éŸ³ æ–‡ ä»¶ æµ ä½œ ä¸º è¾“ å…¥
+			as = new AudioStream (in);// ç”¨ è¾“ å…¥ æµ åˆ› å»º ä¸€ ä¸ªAudioStream å¯¹ è±¡ 
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if(as != null){			
+			AudioPlayer.player.start (as); //â€œplayerâ€ æ˜¯AudioPlayer ä¸­ ä¸€ é™ æ€ æˆ å‘˜ ç”¨ äº æ§ åˆ¶ æ’­ æ”¾ 
 			int playSecond = Constants.ALARM_SECONDS;
 			for(long i=0;isPlay&&i<playSecond;i++){
 				try {
-					System.out.println("======ÒôÀÖ»¹ÓĞ"+(playSecond-i)+"Ãëºó¹Ø±Õ=====");
+					System.out.println("======éŸ³ä¹è¿˜æœ‰"+(playSecond-i)+"ç§’åå…³é—­=====");
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
-			if(!isPlay){
-				AudioPlayer.player.stop (as);
-			}			
-			System.out.println("======ÒôÀÖÒÑ¹Ø±Õ=====");
+			AudioPlayer.player.stop (as);			
+			System.out.println("======éŸ³ä¹å·²å…³é—­=====");
 		}
 	}
 	
@@ -77,7 +75,7 @@ public class AlarmTimer {
 		isPlay = false;
 		if(as != null){
 			AudioPlayer.player.stop (as);
-			System.out.println("======ÒôÀÖÒÑ¹Ø±Õ=====");
+			System.out.println("======éŸ³ä¹å·²å…³é—­=====");
 		}
 		return true;
 	}
@@ -97,6 +95,11 @@ public class AlarmTimer {
 		this.isPlay = isPlay;
 	}	
 	
+	public static String getCurrentTime(){
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		return sf.format(new Date());
+	}
+	
 }
 
 class AlarmTimerTask extends TimerTask{
@@ -110,16 +113,16 @@ class AlarmTimerTask extends TimerTask{
 	}	
 	@Override
 	public void run() {
-		System.out.println("----ÏìÁåÊÂ¼ş---");
+		System.out.println("å“é“ƒäº‹ä»¶---"+AlarmTimer.getCurrentTime());
 		if(!Constants.ALARM_AGAIN){
 			times = 0;
 		}
 		if(times>0){
-			System.out.println("ÏìÁå--"+times);
+			System.out.println("å€’æ•°ç¬¬"+times+"æ¬¡å“ç²");
 			alTimer.playMusic();
 			--times;
 		}else{
-			System.out.println("ÏìÁåOver");
+			System.out.println("å“é“ƒOver--"+AlarmTimer.getCurrentTime());
 			alTimer.stopMusic();
 			this.cancel();
 			alTimer.getTimer().cancel();

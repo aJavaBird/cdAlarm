@@ -6,12 +6,13 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.regex.Pattern;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
@@ -26,46 +27,49 @@ public class Alarm {
 	
 	public Alarm(){
 		
-		label1=new JLabel("ÄÖÖÓÊ±¼ä£¨HH:mm£©");
-        label2=new JLabel("ÄÖÖÓÒôÀÖ£¨wav£©");
-        label3=new JLabel("ÏìÁå¼ä¸ô£¨·ÖÖÓ£©");
-        label4=new JLabel("ÏìÁå´ÎÊý");
+		label1=new JLabel("é—¹é’Ÿæ—¶é—´ï¼ˆHH:mmï¼‰");
+        label2=new JLabel("é—¹é’ŸéŸ³ä¹ï¼ˆwavï¼‰");
+        label3=new JLabel("å“é“ƒé—´éš”ï¼ˆåˆ†é’Ÿï¼‰");
+        label4=new JLabel("å“é“ƒæ¬¡æ•°");
         tf1 = new JTextField();
         tf2 = new JTextField();
         tf3 = new JTextField();
         tf4 = new JTextField();
-        bt1 = new JButton("Æô¶¯ÄÖÖÓ");
-        bt2 = new JButton("ÉÔºóÔÙÏì");
+        tf1.setText("07:00");
+        tf3.setText("5");
+        tf4.setText("5");
+        bt1 = new JButton("å¯åŠ¨é—¹é’Ÿ");
+        bt2 = new JButton("ç¨åŽå†å“");
         bt2.setVisible(false);
         bt1.addActionListener(getAlarmActionListener());
         bt2.addActionListener(getAlarmLaterActionListener());
 		
 		Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
-		/*System.out.println("ÆÁÄ»¿í£º"+screensize.width+"£»ÆÁÄ»¸ß£º"+screensize.height);*/
+		/*System.out.println("å±å¹•å®½ï¼š"+screensize.width+"ï¼›å±å¹•é«˜ï¼š"+screensize.height);*/
         alarmFrame = new JFrame(Constants.TITLE);
-        alarmFrame.setVisible(true);//Ê¹´°Ìå¿ÉÊÓ
-//        alarmFrame.setSize(200, 150);//ÉèÖÃ´°Ìå´óÐ¡
+        alarmFrame.setVisible(true);//ä½¿çª—ä½“å¯è§†
+//        alarmFrame.setSize(200, 150);//è®¾ç½®çª—ä½“å¤§å°
         
         alarmFrame.setBounds((int)(screensize.width*0.4),(int)(screensize.height*0.3),
-        		Constants.ALARM_WIDTH,Constants.ALARM_HEIGHT);//ÉèÖÃ´°ÌåµÄÎ»ÖÃºÍ´óÐ¡
-	        //ÉèÖÃ´°ÌåµÄ¹Ø±Õ·½Ê½
+        		Constants.ALARM_WIDTH,Constants.ALARM_HEIGHT);//è®¾ç½®çª—ä½“çš„ä½ç½®å’Œå¤§å°
+	        //è®¾ç½®çª—ä½“çš„å…³é—­æ–¹å¼
         alarmFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
         GroupLayout layout = new GroupLayout(alarmFrame.getContentPane());        
-      //´´½¨GroupLayoutµÄË®Æ½Á¬Ðø×é£¬£¬Ô½ÏÈ¼ÓÈëµÄParallelGroup£¬ÓÅÏÈ¼¶¼¶±ðÔ½¸ß¡£
+      //åˆ›å»ºGroupLayoutçš„æ°´å¹³è¿žç»­ç»„ï¼Œï¼Œè¶Šå…ˆåŠ å…¥çš„ParallelGroupï¼Œä¼˜å…ˆçº§çº§åˆ«è¶Šé«˜ã€‚
         GroupLayout.SequentialGroup hGroup = layout.createSequentialGroup();
-        hGroup.addGap(5);//Ìí¼Ó¼ä¸ô
+        hGroup.addGap(5);//æ·»åŠ é—´éš”
         hGroup.addGroup(layout.createParallelGroup().addComponent(label1)
                 .addComponent(label2).addComponent(label3).addComponent(label4));
-        hGroup.addGap(5);//Ìí¼Ó¼ä¸ô
+        hGroup.addGap(5);//æ·»åŠ é—´éš”
         hGroup.addGroup(layout.createParallelGroup().addComponent(tf1)
                 .addComponent(tf2).addComponent(tf3).addComponent(tf4)
                 .addComponent(bt1).addComponent(bt2));
         hGroup.addGap(5);
         layout.setHorizontalGroup(hGroup);
-      //´´½¨GroupLayoutµÄ´¹Ö±Á¬Ðø×é£¬£¬Ô½ÏÈ¼ÓÈëµÄParallelGroup£¬ÓÅÏÈ¼¶¼¶±ðÔ½¸ß¡£
+      //åˆ›å»ºGroupLayoutçš„åž‚ç›´è¿žç»­ç»„ï¼Œï¼Œè¶Šå…ˆåŠ å…¥çš„ParallelGroupï¼Œä¼˜å…ˆçº§çº§åˆ«è¶Šé«˜ã€‚
         GroupLayout.SequentialGroup vGroup = layout.createSequentialGroup();
-        vGroup.addGap(10);//Ìí¼Ó¼ä¸ô
+        vGroup.addGap(10);//æ·»åŠ é—´éš”
         vGroup.addGroup(layout.createParallelGroup().addComponent(label1).addComponent(tf1));
         vGroup.addGap(10);
         vGroup.addGroup(layout.createParallelGroup().addComponent(label2).addComponent(tf2));
@@ -78,7 +82,7 @@ public class Alarm {
         vGroup.addGap(10);
         vGroup.addGroup(layout.createParallelGroup().addComponent(bt2));
         vGroup.addGap(10);
-        //ÉèÖÃ´¹Ö±×é
+        //è®¾ç½®åž‚ç›´ç»„
         layout.setVerticalGroup(vGroup);
         alarmFrame.setLayout(layout);
 	}
@@ -87,27 +91,28 @@ public class Alarm {
 		 return new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("btn1µã»÷ÊÂ¼þ--"+Constants.ALARM_OK);
+				System.out.println("å¯åŠ¨/åœæ­¢é—¹é’Ÿ--"+AlarmTimer.getCurrentTime());
 				if(!Constants.ALARM_OK){
-					if(init()){
+					if(init()){						
 						Constants.ALARM_AGAIN = true;
 						int hour = getHour(),min = getMin();
-						System.out.println("ÄÖÖÓÊ±¼ä:"+hour+":"+min);
+						System.out.println("é—¹é’Ÿæ—¶é—´:"+hour+":"+min);
 						alTimer = new AlarmTimer(hour,min);
 						alTimer.startAlarm();
-						bt1.setText("Í£Ö¹ÄÖÖÓ");
+						bt1.setText("åœæ­¢é—¹é’Ÿ");
 						bt2.setVisible(true);
 						Constants.ALARM_OK = true;
+						System.out.println("é—¹é’Ÿå¯åŠ¨æˆåŠŸ--"+AlarmTimer.getCurrentTime());
 					}else{
-						System.out.println("³õÊ¼»¯Êý¾ÝÊ§°Ü£¬ÇëÈ·ÈÏËùÌîÐ´Ê±¼ä¡¢²¥·ÅÎÄ¼þ¡¢¼ä¸ô¡¢ÏìÁå´ÎÊýÊý¾ÝÊÇ·ñÕýÈ·£¡");
-					}
-					
+						JOptionPane.showConfirmDialog(null,"è¯·æ­£ç¡®å¡«å†™é—¹é’Ÿå‚æ•°ï¼ï¼","å‚æ•°é”™è¯¯",JOptionPane.YES_NO_OPTION);
+					}					
 				}else{
+					System.out.println("é—¹é’Ÿå…³é—­æˆåŠŸ--"+AlarmTimer.getCurrentTime());
 					alTimer.setPlay(false);
 					alTimer.getTimer().cancel();
 					alTimer.getTimer().purge();
 					Constants.ALARM_AGAIN = false;
-					bt1.setText("Æô¶¯ÄÖÖÓ");
+					bt1.setText("å¯åŠ¨é—¹é’Ÿ");
 					bt2.setVisible(false);					
 					Constants.ALARM_OK = false;
 				}				
@@ -118,22 +123,58 @@ public class Alarm {
 				String text2 = tf2.getText();
 				String text3 = tf3.getText();
 				String text4 = tf4.getText();
+				String pattern = "[0-2]{0,1}[0-9]{1}:[0-5]{0,1}[0-9]{1}";
+				if(text1!=null){
+					text1 = text1.replace("ï¼š",":");
+				}else{
+					return false;
+				}				
+			    if(!Pattern.matches(pattern,text1)){
+			    	return false;
+			    }else{
+			    	if(Integer.parseInt(text1.split(":")[0])>=24){
+			    		return false;
+			    	}
+			    }
 				if(text2!=null && !"".equals(text2)){
-					text2 = text2.replace("\\\\", "/");
+					text2 = text2.replace("\\\\", "/");					
 					Constants.FILE_PATH = text2;
+				}else{
+					return false;
 				}
 				if(text3!=null && !"".equals(text3)){
+					String pattern3 = "[0-9]{1,}";
+				    if(!Pattern.matches(pattern3,text3)){
+				    	return false;
+				    }else if(Integer.parseInt(text3)<=0){
+				    	return false;
+				    }
 					Constants.EVERY_OTHER_TIME = Integer.parseInt(text3);
+					if(Constants.EVERY_OTHER_TIME>2){
+						Constants.ALARM_SECONDS = 150;
+					}else if(Constants.EVERY_OTHER_TIME>1){
+						Constants.ALARM_SECONDS = 90;
+					}
+				}else{
+					return false;
 				}
 				if(text4!=null && !"".equals(text4)){
+					String pattern4 = "[0-9]{1,}";
+				    if(!Pattern.matches(pattern4,text4)){
+				    	return false;
+				    }else if(Integer.parseInt(text4)<=0){
+				    	return false;
+				    }
 					Constants.ALARM_TIMES = Integer.parseInt(text4);
+				}else{
+					return false;
 				}
 				return true;
 			}
 			
 			private int getHour(){
 				String text = tf1.getText();
-				text = text.replace("£º",":");
+				text = text.replace("ï¼š",":");
 				if(text.indexOf(":")>0 && text.indexOf(":")<text.length()-1){
 					return Integer.parseInt(text.split(":")[0]);
 				}
@@ -141,7 +182,7 @@ public class Alarm {
 			}
 			private int getMin(){
 				String text = tf1.getText();
-				text = text.replace("£º",":");
+				text = text.replace("ï¼š",":");
 				if(text.indexOf(":")>0 && text.indexOf(":")<text.length()-1){
 					return Integer.parseInt(text.split(":")[1]);
 				}
@@ -153,8 +194,8 @@ public class Alarm {
 	private ActionListener getAlarmLaterActionListener(){
 		 return new ActionListener(){
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("btn1µã»÷ÊÂ¼þ--"+Constants.ALARM_OK);
+			public void actionPerformed(ActionEvent e) {				
+				System.out.println("ç¨åŽå†å“--"+AlarmTimer.getCurrentTime());
 				alTimer.setPlay(false);
 			}
        };
